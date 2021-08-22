@@ -1,0 +1,28 @@
+{
+  "name": "action-deploy-theme",
+  "version": "1.4.1",
+  "repository": "git@github.com:TryGhost/action-deploy-theme.git",
+  "author": "Ghost Foundation",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build",
+    "lint": "eslint . --ignore-pattern dist --ext .js --cache",
+    "preship": "yarn build && yarn lint",
+    "ship": "STATUS=$(git status --porcelain); echo $STATUS; if [ -z \"$STATUS\" ]; then yarn version && git push --follow-tags; fi"
+  },
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "devDependencies": {
+    "@zeit/ncc": "0.22.3",
+    "eslint": "7.32.0",
+    "eslint-plugin-ghost": "2.6.0"
+  },
+  "dependencies": {
+    "@actions/core": "1.5.0",
+    "@actions/exec": "1.1.0",
+    "@tryghost/admin-api": "1.4.3"
+  }
+}
